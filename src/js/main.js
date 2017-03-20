@@ -9,9 +9,9 @@ const subst = `</p><p>`;
 
 const urlStr = 'https://interactive.guim.co.uk/docsdata-test/1-N2GXh1uMaQudoZb6we9O7dgifM7XWco3EoGK-YytR0.json?polit=';
 
-var selectedItem = document.querySelector(".element-interactive").getAttribute('data-alt');
+//var selectedItem = document.querySelector(".element-interactive").getAttribute('data-alt');
 
-//var selectedItem = "Emmanuel Macron";
+var selectedItem = "Emmanuel Macron";
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
@@ -52,6 +52,11 @@ function buildEditView(d){
 
 
 function formatData(data) {
+
+    var newObj = {};
+
+    newObj.cards = [];
+
     data.cards.map((card) => {
         card.ShortLeaderRef = whitespaceFixRemoveSpaceAndAccents(card.Leader);
         card.PolicyOneCopy = whitespaceFixOne(card.PolicyOneCopy);
@@ -59,14 +64,23 @@ function formatData(data) {
         card.PolicyThreeCopy = whitespaceFixOne(card.PolicyThreeCopy);
         card.PolicyFourCopy = whitespaceFixOne(card.PolicyFourCopy);
         card.PolicyFiveCopy = whitespaceFixOne(card.PolicyFiveCopy);
-        if(card.ShortLeaderRef == selectedItem){ card.valid=true };
+        if(card.ShortLeaderRef == selectedItem){ card.valid=true; };
+
         return card;
+        
     });
 
 
-    data.selectedCandidate=selectedItem;
+    data.cards.map((card) => {    
+        if(selectedItem==card.ShortLeaderRef){ newObj.cards.push(card); }
+        
+    });
 
-    return data;
+
+    newObj.selectedCandidate = data.selectedCandidate=selectedItem;
+
+
+    return newObj;
 }
 
 
