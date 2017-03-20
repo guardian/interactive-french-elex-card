@@ -7,51 +7,51 @@ import share from './lib/share'
 const regex = /[\r\n]+/g;
 const subst = `</p><p>`;
 
-const urlStr = 'https://interactive.guim.co.uk/docsdata-test/1-N2GXh1uMaQudoZb6we9O7dgifM7XWco3EoGK-YytR0.json?polit=';
+const urlStr = 'https://interactive.guim.co.uk/docsdata-test/1-N2GXh1uMaQudoZb6we9O7dgifM7XWco3EoGK-YytR0.json';
 
-//var selectedItem = document.querySelector(".element-interactive").getAttribute('data-alt');
 
-var selectedItem = "Emmanuel Macron";
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
 export function init(el, context, config, mediator) {
     el.innerHTML = mainHTML.replace(/%assetPath%/g, config.assetPath);
 
-
+    let selectedItem =  whitespaceFixRemoveSpaceAndAccents(el.getAttribute("data-alt"));
+    console.log(selectedItem)
     reqwest({
         url: urlStr,
         type: 'json',
         crossOrigin: true,
-        success: (resp) => buildEditView(resp) //el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.cards}`
+        success: (resp) => buildEditView(resp,el,selectedItem) //el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.cards}`
     });
 
     [].slice.apply(el.querySelectorAll('.interactive-share')).forEach(shareEl => {
         var network = shareEl.getAttribute('data-network');
         shareEl.addEventListener('click', () => shareFn(network));
     });
+
+
+    
 }
 
 
 
-function buildEditView(d) {
+function buildEditView(d,el,selectedItem) {
 
     //selectedItem =='Houseprices' ? selectedItem = selectedItemConst : selectedItem = selectedItem;
 
-    selectedItem = whitespaceFixRemoveSpaceAndAccents(selectedItem);
+    console.log(d,el,selectedItem)
 
-    console.log(selectedItem);
-
-    d = formatData(d);
+    d = formatData(d,selectedItem);
 
     let editHtml = Mustache.render(cardsHTML, d);
-    console.log(d);
-    document.querySelector('.test-msg').innerHTML = `${editHtml}`;
+
+    el.innerHTML = `${editHtml}`;
 }
 
 
 
-function formatData(data) {
+function formatData(data,selectedItem) {
 
     var newObj = {};
 
