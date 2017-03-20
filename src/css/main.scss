@@ -1,0 +1,218 @@
+@import "fonts";
+@import "palette";
+@import "mq";
+@import "general";
+@import "share";
+@import 'bower_components/guss-grid-system/_grid-system.scss';
+
+
+$bg-color: $news-main-2;
+
+// Uncomment for embeds
+//@import "embed";
+
+// Uncomment for full screen (including immersive article main media)
+//@import "fullscreen";
+body{
+	    margin: 0 !important;
+	    background:#FFF;
+}
+.element-atom,
+.interactive-atom {
+    margin: 0 !important;
+    
+}
+
+.gv-card-wrapper{
+	posiiton:relative;
+	width:100%;
+	background-color: rgba($news-main-2,0.4);
+
+	margin-top: gs-height(1);
+	margin-left: -10px;
+	padding-left: 10px;
+    padding-right: 10px;
+    border-top: 1px solid rgba($news-support-2,0.2);
+
+    h3,h5{
+    	@include fs-headline(5);
+    	// font-weight:200;
+    	margin: 0 !important;
+    }
+    h5{
+    	@include fs-headline(3);
+    }
+
+
+     @include mq(tablet){
+     	padding-right:0;
+    	margin-left:-20px;
+    	padding-left:20px;
+    }
+    
+}
+
+
+.gv-card-col-main{
+	display:block;
+	width:calc(100%-$gs-gutter-$gs-gutter);
+	padding:$gs-baseline 0;
+	@include mq(leftCol){
+		padding:$gs-baseline $gs-gutter;
+	}
+}
+
+.gv-card-item{
+	display:block;
+	width:100%;
+	margin: 0;
+	margin-bottom: $gs-baseline;
+
+	h2{
+		@include fs-header(3);
+	}
+	h3{
+		margin:0 !important;
+
+	}
+	p{
+		@include fs-bodyCopy(2);
+		margin-bottom: $gs-baseline*1.25;
+	}
+	
+}
+
+// .gv-card-item p::after{
+// 		position:absolute;
+// 		content:'';
+// 		width:gs-span(1);
+// 		height:3px;
+// 		background-color: rgba($news-main-2,0.4);
+// 	}
+
+.gv-rating-holder::after{
+	content:"•••••";
+}
+
+.gv-rating-holder{
+	margin:0 !important;
+}
+
+
+.gv-header-copy{
+	@include fs-textSans(3);
+	padding-bottom: $gs-baseline;
+	margin-bottom: $gs-baseline;	
+	width: 100%;
+    max-width: 280px;
+	margin: 0 !important;
+   color:#222;
+
+    @include mq(desktop){
+    	@include fs-headline(3);
+    	max-width: 400px;
+    }
+
+
+}
+
+
+.gv-policy-copy{
+	@include fs-textSans(3);
+	padding-bottom: $gs-baseline;
+	margin-bottom: $gs-baseline;	
+	width: 100%;
+    max-width: 280px;
+	margin: 0 !important;
+   	color:#222;
+
+    @include mq(desktop){
+    	@include fs-bodyCopy(3);
+    	max-width: 620px;
+    }
+
+
+}
+
+.gv-EmmanuelMacron{
+	background: url('./assets/imgs/macron.jpg');
+}
+
+.gv-FrancoisFillon{
+	background: url('./assets/imgs/fillon.jpg');
+}
+
+.gv-Jean-LucMelenchon{
+	background: url('./assets/imgs/melenchon.jpg');
+}
+
+.gv-MarieLePen{
+	background: url('./assets/imgs/lepen.jpg');
+}
+
+.gv-BenoitHamon{
+	background: url('./assets/imgs/hamon.jpg');
+}
+
+
+.gv-card-head-div{
+	display:inline-block;
+	vertical-align:top;
+	padding-left:0;
+	@include mq(mobileLandscape){
+		padding-left:$gs-gutter;
+	}
+	
+
+}
+.gv-profile-pic{
+	display:inline-block;
+	margin-left:0;
+	height: 80px;
+	width: 80px;
+	
+	
+	border-radius:1000px;
+	background-repeat:no-repeat;
+	background-size:contain;
+
+
+	@include mq(leftCol){
+
+	    margin-left: 114px;
+	}
+
+	@include mq(wide){
+		height:120px;
+		width:120px;
+		margin-left:74px;
+	}
+	
+}
+
+.gv-body-wrapper{
+	margin-top: $gs-baseline;
+	margin-left: 0;
+	@include mq(leftCol){
+	    margin-left: 160px;
+	}
+
+	@include mq(wide){
+		margin-left:240px;
+	}
+
+}
+
+// .gv-card-item::before {
+// 	position:absolute;
+// 	content:'';
+// 	height:6px;
+// 	width:gs-span(1);
+// 	margin-top: gs-height(1);
+// 	background-color:rgba($news-main-2,0.4);
+
+// }
+
+.neutral-3{
+	color: #FFF !important;
+}
