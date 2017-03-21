@@ -2,6 +2,7 @@ import reqwest from 'reqwest'
 import Mustache from 'mustache'
 import mainHTML from './text/main.html!text'
 import cardsHTML from './text/cardsTemplate.html!text'
+import embedHTML from './text/embdTemplate.html!text'
 import share from './lib/share'
 
 const regex = /[\r\n]+/g;
@@ -16,13 +17,15 @@ var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 export function init(el, context, config, mediator) {
     el.innerHTML = mainHTML.replace(/%assetPath%/g, config.assetPath);
 
-    let selectedItem =  whitespaceFixRemoveSpaceAndAccents(el.getAttribute("data-alt"));
-    console.log(selectedItem)
+    let selectedItem = setCandidateVar(el.getAttribute("data-alt"), el)
+
+    let addEmbed = checkEmbed(el.getAttribute("data-alt"));
+
     reqwest({
         url: urlStr,
         type: 'json',
         crossOrigin: true,
-        success: (resp) => buildEditView(resp,el,selectedItem) //el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.cards}`
+        success: (resp) => buildEditView(resp, el, selectedItem, addEmbed) //el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.cards}`
     });
 
     [].slice.apply(el.querySelectorAll('.interactive-share')).forEach(shareEl => {
@@ -31,39 +34,78 @@ export function init(el, context, config, mediator) {
     });
 
 
+
+}
+
+
+function setCandidateVar(s, el) {
+  
+    return whitespaceFixRemoveSpaceAndAccents(s);
+}
+
+function checkEmbed(s){
+    let a = s.split("*---*");
+    var addEmbed = false;
+    if (a.length > 1) {
+        addEmbed = true;
+    }
+    return addEmbed;
+}
+
+
+function addEmbedFunctionality(el) {
+    let a = el.querySelectorAll('.gv-read-more-btn');
+    console.log(a, el);
+    a.classList.remove(' inactive');
+
+}
+
+
+
+function buildEditView(d, el, selectedItem, addEmbed ) {
+
+    var editHtml;
+
+    d = formatData(d, selectedItem);
+
+    addEmbed ? buildEmbed() : buildHeader();
+
+
+    function buildHeader(){
+        editHtml = Mustache.render(cardsHTML, d);
+    }
+
+    function buildEmbed(){
+        editHtml = Mustache.render(embedHTML, d);
+    }
+
+
+   
+
+    
+
+    el.innerHTML = `${editHtml}`;
+
+
+
+    console.log(addEmbed)
+
     
 }
 
 
 
-function buildEditView(d,el,selectedItem) {
-
-    //selectedItem =='Houseprices' ? selectedItem = selectedItemConst : selectedItem = selectedItem;
-
-    console.log(d,el,selectedItem)
-
-    d = formatData(d,selectedItem);
-
-    let editHtml = Mustache.render(cardsHTML, d);
-
-    el.innerHTML = `${editHtml}`;
-}
-
-
-
-function formatData(data,selectedItem) {
+function formatData(data, selectedItem) {
 
     var newObj = {};
+
+    newObj.shortURL = data.shortUrl;
 
     newObj.cards = [];
 
     data.cards.map((card) => {
         card.ShortLeaderRef = whitespaceFixRemoveSpaceAndAccents(card.Leader);
-        card.PolicyOneCopy = whitespaceFixOne(card.PolicyOneCopy);
-        card.PolicyTwoCopy = whitespaceFixOne(card.PolicyTwoCopy);
-        card.PolicyThreeCopy = whitespaceFixOne(card.PolicyThreeCopy);
-        card.PolicyFourCopy = whitespaceFixOne(card.PolicyFourCopy);
-        card.PolicyFiveCopy = whitespaceFixOne(card.PolicyFiveCopy);
+
         if (card.ShortLeaderRef == selectedItem) { card.valid = true; };
 
         return card;

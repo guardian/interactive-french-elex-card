@@ -216,3 +216,37 @@ body{
 .neutral-3{
 	color: #FFF !important;
 }
+
+
+.gv-read-more-btn {
+    height: 18px;
+    margin: $gs-baseline 0;
+    padding: 6px 0 6px 36px;
+    border-radius: 1000px;
+    width: gs-span(1)+$gs-gutter;
+    background-color:$bg-color;
+    text-align: left;
+    @include fs-textSans(3);
+    color: #FFF;
+    cursor: pointer;
+}
+
+.gv-read-more-btn:after {
+        content: ' ';
+        margin: 0 6px 0 0;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        opacity: 0.5;
+        background-image: url('./assets/imgs/arrow-right.svg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 18px;
+        float: left;
+        background-color: $neutral-3;
+        border: none;
+    }
+
+.inactive{
+	display:none;
+}    
