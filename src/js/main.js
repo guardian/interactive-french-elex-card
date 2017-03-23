@@ -7,25 +7,24 @@ import share from './lib/share'
 
 const regex = /[\r\n]+/g;
 const subst = `</p><p>`;
-
 const urlStr = 'https://interactive.guim.co.uk/docsdata-test/1-N2GXh1uMaQudoZb6we9O7dgifM7XWco3EoGK-YytR0.json';
-
-
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
 export function init(el, context, config, mediator) {
     el.innerHTML = mainHTML.replace(/%assetPath%/g, config.assetPath);
 
-    let selectedItem = setCandidateVar(el.getAttribute("data-alt"), el)
+    //let selectedItem = setCandidateVar(el.getAttribute("data-alt"), el)
 
-    let addEmbed = checkEmbed(el.getAttribute("data-alt"));
+    let selectedItem = "MarineLePen";
+
+    //let addEmbed = checkEmbed(el.getAttribute("data-alt"));
 
     reqwest({
         url: urlStr,
         type: 'json',
         crossOrigin: true,
-        success: (resp) => buildEditView(resp, el, selectedItem, addEmbed) //el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.cards}`
+        success: (resp) => buildEditView(resp, el, selectedItem) //el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.cards}`
     });
 
     [].slice.apply(el.querySelectorAll('.interactive-share')).forEach(shareEl => {
@@ -34,7 +33,15 @@ export function init(el, context, config, mediator) {
     });
 
 
+    addBackTopFn();
 
+
+}
+
+function addBackTopFn(){
+    let a = document.querySelector('.back-to-top-button');
+
+    a.addEventListener('click', () => console.log("top"));
 }
 
 
@@ -62,22 +69,14 @@ function addEmbedFunctionality(el) {
 
 
 
-function buildEditView(d, el, selectedItem, addEmbed ) {
+function buildEditView(d, el, selectedItem) {
 
     var editHtml;
 
     d = formatData(d, selectedItem);
 
-    addEmbed ? buildEmbed() : buildHeader();
-
-
-    function buildHeader(){
         editHtml = Mustache.render(cardsHTML, d);
-    }
 
-    function buildEmbed(){
-        editHtml = Mustache.render(embedHTML, d);
-    }
 
 
    
@@ -88,7 +87,6 @@ function buildEditView(d, el, selectedItem, addEmbed ) {
 
 
 
-    console.log(addEmbed)
 
     
 }
