@@ -33,17 +33,24 @@ export function init(el, context, config, mediator) {
     });
 
 
-    addBackTopFn();
+    addBackTopFn(el);
 
 
 }
 
-function addBackTopFn(){
-    let a = document.querySelector('.back-to-top-button');
+function addBackTopFn(el){
 
-    a.addEventListener('click', () => console.log("top"));
+    
+    let btn = el.querySelector('.back-to-top-button');
+    console.log(btn);
+        btn.addEventListener('click', () => backTopFn(el));
+
 }
 
+
+function backTopFn(el){
+    console.log("top");
+}
 
 function setCandidateVar(s, el) {
   

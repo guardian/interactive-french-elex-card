@@ -1,12 +1,12 @@
 .back-to-top-button {
     position : relative;
-        width: 33px;
-        height: 33px; 
-        left:calc(50% - 14px);
+        width: gs-height(1);
+        height:  gs-height(1); 
+        left:calc(50% - 18px);
         margin: $gs-baseline 0 gs-height(1);
         background-color: $guardian-brand;
         cursor: pointer;
-        
+         
        
         border-radius: 22px;
         
@@ -24,6 +24,8 @@
 
         svg {
             fill: #fff;
+            padding-top: 6px;
+                padding-left: 7px;
         }
 
         &.fade {
@@ -34,6 +36,7 @@
         @include mq(tablet) {
                color: #fff;
                width: 130px;
+               height: 33px; 
                left:20px;
                @include fs-textSans(3)
   
@@ -44,6 +47,7 @@
                 // right: 0;
                 // top: 0;
                 padding-top: 6px;
+                padding-left: 0;
                 padding-right: 9px;
                 float: right;
                 }
