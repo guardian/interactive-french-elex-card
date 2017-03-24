@@ -26,10 +26,10 @@ body{
 .gv-card-wrapper{
 	posiiton:relative;
 	width:100%;
-	background-color: rgba($news-main-2,0.6);
+	background-color: #90dded;//rgba($news-main-2, 0.6);
 
 	margin-top: gs-height(1);
-	margin-left: -10px;
+	margin-left: 0;
 	padding-left: 10px;
     padding-right: 10px;
     border-top: 1px solid rgba($news-support-2,0.3);
@@ -202,6 +202,7 @@ body{
 		height:120px;
 		width:120px;
 		margin-left:74px;
+		margin-top:4px;
 	}
 	
 }
@@ -240,7 +241,7 @@ body{
     padding: 6px 0 6px 36px;
     border-radius: 1000px;
     width: gs-span(1)+$gs-gutter;
-    background-color:$bg-color;
+    background-color: $bg-color;
     text-align: left;
     @include fs-textSans(3);
     color: #FFF;

@@ -33,24 +33,19 @@ export function init(el, context, config, mediator) {
     });
 
 
-    addBackTopFn(el);
-
-
-}
-
-function addBackTopFn(el){
-
     
-    let btn = el.querySelector('.back-to-top-button');
-    console.log(btn);
-        btn.addEventListener('click', () => backTopFn(el));
+
 
 }
 
+// function addBackTopFn(el){
 
-function backTopFn(el){
-    console.log("top");
-}
+//     el.getElementById("gvBackTopBtn").addEventListener("click", function(){ window.parent.document.querySelector(".media-primary").scrollIntoView({ behavior: 'smooth' }) });
+    
+
+// }
+
+
 
 function setCandidateVar(s, el) {
   
@@ -75,26 +70,16 @@ function addEmbedFunctionality(el) {
 }
 
 
-
 function buildEditView(d, el, selectedItem) {
 
     var editHtml;
 
     d = formatData(d, selectedItem);
 
-        editHtml = Mustache.render(cardsHTML, d);
-
-
-
-   
-
-    
+        editHtml = Mustache.render(cardsHTML, d);   
 
     el.innerHTML = `${editHtml}`;
-
-
-
-
+    // addBackTopFn(el);
     
 }
 
